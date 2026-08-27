@@ -21,13 +21,16 @@ const TOKEN_KEY = "softsove-admin-token";
 
 export function AdminDesk() {
   const [token, setToken] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [jobs, setJobs] = useState<Job[]>([]);
   const [apps, setApps] = useState<Application[]>([]);
   const [form, setForm] = useState<JobWrite>(EMPTY);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [notice, setNotice] = useState("");
-  const [tab, setTab] = useState<"roles" | "inbox">("roles");
+  const [tab, setTab] = useState<"roles" | "inbox" | "account">("roles");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
     const saved = window.sessionStorage.getItem(TOKEN_KEY) || "";
@@ -56,7 +59,7 @@ export function AdminDesk() {
     setNotice("");
     try {
       const result = await apiSend<{ token: string }>("/admin/login", {
-        json: { password },
+        json: { email, password },
       });
       window.sessionStorage.setItem(TOKEN_KEY, result.token);
       setToken(result.token);
@@ -138,9 +141,39 @@ export function AdminDesk() {
     URL.revokeObjectURL(url);
   }
 
+  async function changePassword(event: FormEvent) {
+    event.preventDefault();
+    setNotice("");
+    try {
+      const result = await apiSend<{ success: boolean; message: string }>("/admin/password", {
+        token,
+        json: { current_password: currentPassword, new_password: newPassword },
+      });
+      setCurrentPassword("");
+      setNewPassword("");
+      setNotice(result.message);
+    } catch (err) {
+      setNotice(err instanceof Error ? err.message : "Could not update password.");
+    }
+  }
+
   if (!token) {
     return (
       <form className="tt-form tt-form-lg tt-form-creative max-width-700" onSubmit={login}>
+        <div className="tt-form-group">
+          <label htmlFor="desk-email">
+            Email <span className="required">*</span>
+          </label>
+          <input
+            className="tt-form-control"
+            id="desk-email"
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="care@softsove.com"
+            required
+          />
+        </div>
         <div className="tt-form-group">
           <label htmlFor="desk-pass">
             Password <span className="required">*</span>
@@ -177,13 +210,23 @@ export function AdminDesk() {
         </a>
         <a
           href="#inbox"
-          className="tt-btn tt-btn-secondary"
+          className="tt-btn tt-btn-secondary margin-right-20"
           onClick={(event) => {
             event.preventDefault();
             setTab("inbox");
           }}
         >
           <span data-hover="Applications">Applications</span>
+        </a>
+        <a
+          href="#account"
+          className="tt-btn tt-btn-secondary"
+          onClick={(event) => {
+            event.preventDefault();
+            setTab("account");
+          }}
+        >
+          <span data-hover="Password">Password</span>
         </a>
       </div>
 
@@ -373,7 +416,7 @@ export function AdminDesk() {
             ))}
           </div>
         </div>
-      ) : (
+      ) : tab === "inbox" ? (
         <div>
           <div className="tt-heading tt-heading-sm margin-bottom-30">
             <h2 className="tt-heading-title">Applications</h2>
@@ -411,6 +454,42 @@ export function AdminDesk() {
             </div>
           ))}
         </div>
+      ) : (
+        <form className="tt-form tt-form-creative max-width-700" onSubmit={changePassword}>
+          <div className="tt-heading tt-heading-sm margin-bottom-30">
+            <h2 className="tt-heading-title">Change password</h2>
+          </div>
+          <div className="tt-form-group">
+            <label htmlFor="current-pass">
+              Current password <span className="required">*</span>
+            </label>
+            <input
+              className="tt-form-control"
+              id="current-pass"
+              type="password"
+              value={currentPassword}
+              onChange={(event) => setCurrentPassword(event.target.value)}
+              required
+            />
+          </div>
+          <div className="tt-form-group">
+            <label htmlFor="new-pass">
+              New password <span className="required">*</span>
+            </label>
+            <input
+              className="tt-form-control"
+              id="new-pass"
+              type="password"
+              minLength={8}
+              value={newPassword}
+              onChange={(event) => setNewPassword(event.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="tt-btn tt-btn-secondary">
+            <span data-hover="Update password">Update password</span>
+          </button>
+        </form>
       )}
     </div>
   );
