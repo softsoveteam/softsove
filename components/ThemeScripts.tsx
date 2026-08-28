@@ -2,6 +2,12 @@
 
 import { useEffect } from "react";
 
+declare global {
+  interface Window {
+    SOFTSOVE_API_URL?: string;
+  }
+}
+
 const SCRIPTS = [
   "/assets/vendor/jquery/jquery.min.js",
   "/assets/vendor/gsap/gsap.min.js",
@@ -58,6 +64,7 @@ function loadAllScripts() {
 
 export function ThemeScripts() {
   useEffect(() => {
+    window.SOFTSOVE_API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
     void loadAllScripts();
   }, []);
 

@@ -2187,7 +2187,7 @@
 		const formData = $(this).serialize();
 		$.ajax({
 			type: "POST",
-			url: "/api/contact", // Path to your contact API.
+			url: (window.SOFTSOVE_API_URL || "http://127.0.0.1:8000") + "/contact",
 			data: formData,
 			dataType: "json",
 
