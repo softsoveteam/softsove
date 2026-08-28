@@ -64,7 +64,7 @@ function loadAllScripts() {
 
 export function ThemeScripts() {
   useEffect(() => {
-    window.SOFTSOVE_API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+    window.SOFTSOVE_API_URL = (process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000").replace(/\/+$/, "");
     void loadAllScripts();
   }, []);
 
