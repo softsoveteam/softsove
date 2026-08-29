@@ -57,13 +57,13 @@ export function Footer() {
               <h3 className="tt-footer-widget-heading">Sitemap</h3>
               <ul className="tt-footer-widget-list">
                 <li>
-                  <a href="/about-us" className="tt-link">
-                    About Us
+                  <a href="/how-we-got-weird" className="tt-link">
+                    How We Got Weird
                   </a>
                 </li>
                 <li>
-                  <a href="/portfolio-scrolling-tilted" className="tt-link">
-                    Portfolio
+                  <a href="/crafted-things" className="tt-link">
+                    Crafted Things
                   </a>
                 </li>
                 <li>
@@ -77,8 +77,8 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="/blog-sidebar" className="tt-link">
-                    Blog
+                  <a href="/typed-things" className="tt-link">
+                    Typed Things
                   </a>
                 </li>
               </ul>

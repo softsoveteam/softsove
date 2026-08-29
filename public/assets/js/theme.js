@@ -75,22 +75,33 @@
 	if ($("body").hasClass("tt-transition")) {
 
 		let $tt_pageTransition = $("#tt-page-transition");
-		let $tt_ptrPreloader = $(".tt-ptr-preloader");
-		let $tt_ptrOverlayTop = $(".tt-ptr-overlay-top");
-		let $tt_ptrOverlayBottom = $(".tt-ptr-overlay-bottom");
+		let $tt_marpLoader = $(".tt-marp-loader");
+		let $tt_marpCols = $(".tt-marp-col");
+		let $tt_marpPct = $(".tt-marp-pct");
 
 		let $tt_ptrDuration = 0.7; // Animation duration
 
+
+		function ttMarpSetPct(value) {
+			if ($tt_marpPct.length) {
+				$tt_marpPct.text(String(Math.max(0, Math.min(100, Math.round(value)))).padStart(2, "0"));
+			}
+		}
 
 		// Page transitions In 
 		// ====================
 		function ttAnimateTransitionIn() {
 			let tl_transitIn = gsap.timeline({ defaults: { duration: $tt_ptrDuration, ease: "expo.inOut" }});
 			if ($tt_pageTransition.length) {
-				tl_transitIn.set($tt_pageTransition, { autoAlpha: 1 });
-				tl_transitIn.to($tt_ptrOverlayTop, { scaleY: 1, transformOrigin: "center top" }, 0);
-				tl_transitIn.to($tt_ptrOverlayBottom, { scaleY: 1, transformOrigin: "center bottom" }, 0);
-				tl_transitIn.to($tt_ptrPreloader, { autoAlpha: 1 }, 0.5);
+				tl_transitIn.set($tt_pageTransition, { autoAlpha: 1, visibility: "visible" });
+				tl_transitIn.set($tt_marpLoader, { autoAlpha: 1 });
+				ttMarpSetPct(0);
+				tl_transitIn.fromTo($tt_marpCols, { yPercent: 110 }, {
+					yPercent: 0,
+					duration: 0.7,
+					stagger: { each: 0.04, from: "center" },
+					ease: "expo.out"
+				}, 0);
 			}
 		}
 
@@ -100,9 +111,24 @@
 		function ttAnimateTransitionOut() {
 			let tl_transitOut = gsap.timeline({ defaults: { duration: $tt_ptrDuration, ease: "expo.inOut" }});
 			if ($tt_pageTransition.length) {
-				tl_transitOut.to($tt_ptrPreloader, { autoAlpha: 0 });
-				tl_transitOut.to($tt_ptrOverlayTop, { scaleY: 0, transformOrigin: "center top" }, 0.5);
-				tl_transitOut.to($tt_ptrOverlayBottom, { scaleY: 0, transformOrigin: "center bottom" }, 0.5);
+				const pct = { n: 0 };
+				tl_transitOut.set($tt_pageTransition, { autoAlpha: 1, visibility: "visible" });
+				tl_transitOut.set($tt_marpLoader, { autoAlpha: 1 });
+				tl_transitOut.set($tt_marpCols, { yPercent: 0 });
+				tl_transitOut.to(pct, {
+					n: 100,
+					duration: 1.05,
+					ease: "power2.inOut",
+					onUpdate: function () { ttMarpSetPct(pct.n); }
+				}, 0);
+				tl_transitOut.to($tt_marpCols, {
+					yPercent: function (i) { return i % 2 === 0 ? -110 : 110; },
+					duration: 0.85,
+					stagger: 0.045,
+					ease: "expo.inOut"
+				}, 0.95);
+				tl_transitOut.to($tt_marpLoader, { autoAlpha: 0, duration: 0.2 }, 1.55);
+				tl_transitOut.set($tt_pageTransition, { autoAlpha: 0, visibility: "hidden" });
 			}
 
 				
@@ -391,63 +417,55 @@
 		$("body").addClass("tt-header-scroll-on");
 	}
 	
-	// Hide header on scroll down and show on scroll up.
-	// =================================================
-	let didScroll;
-	let lastScrollTop = 0;
-	let delta = 120;
+	// Sticky header: stay pinned and animate the filled bar in after the hero.
+	// ========================================================================
 	let tt_Header = $("#tt-header");
-	let tt_HeaderScroll = $(".tt-header-scroll");
-	let navbarHeight = tt_HeaderScroll.outerHeight();
+	const ttHeaderStickyAt = 72;
 
-	$(window).scroll(function(event) {
-		didScroll = true;
-	});
-
-	setInterval(function() { 
-		if (didScroll) {
-			hasScrolled();
-			didScroll = false;
+	function ttGetScrollTop() {
+		if (typeof ScrollSmoother !== "undefined") {
+			const smoother = ScrollSmoother.get();
+			if (smoother) return smoother.scrollTop();
 		}
-	}, 50);
-
-	function hasScrolled() {
-		let st = $(window).scrollTop();
-	  
-		// Make sure they scroll more than delta
-		if (Math.abs(lastScrollTop - st) <= delta)
-			return;
-
-			// If scrolled down and are past the header, add class .tt-fly-up.
-			// This is necessary so you never see what is "behind" the header.
-			if (st > lastScrollTop && st > navbarHeight) {
-				// Scroll Down
-				tt_HeaderScroll.addClass("tt-fly-up");
-			} else {
-			// Scroll Up
-			if (st + $(window).height() < $(document).height()) {
-				tt_HeaderScroll.removeClass("tt-fly-up");
-			}
-
-			// Header filled
-			if (tt_Header.hasClass("tt-header-filled")) {
-				if (tt_Header.hasClass("tt-header-scroll") || tt_Header.hasClass("tt-header-fixed")) {
-					if (st > delta) {
-						tt_Header.addClass("tt-filled");
-					} else {
-						tt_Header.removeClass("tt-filled");
-					}
-				}
-			}
-		}
-
-		lastScrollTop = st;
+		return window.scrollY || $(window).scrollTop() || 0;
 	}
+
+	function ttUpdateStickyHeader() {
+		if (!tt_Header.hasClass("tt-header-filled")) return;
+		if (!(tt_Header.hasClass("tt-header-scroll") || tt_Header.hasClass("tt-header-fixed"))) return;
+
+		const st = ttGetScrollTop();
+		if (st > ttHeaderStickyAt) {
+			if (!tt_Header.hasClass("tt-filled")) {
+				tt_Header.addClass("tt-filled tt-header-sticky-in");
+			}
+		} else {
+			tt_Header.removeClass("tt-filled tt-header-sticky-in");
+		}
+	}
+
+	$(window).on("scroll", ttUpdateStickyHeader);
+	if (typeof ScrollTrigger !== "undefined") {
+		ScrollTrigger.create({
+			start: 0,
+			end: "max",
+			onUpdate: ttUpdateStickyHeader
+		});
+	}
+	ttUpdateStickyHeader();
 
 
 	// Style switch
 	// =============
 	// Note. Add the class "tt-dark-mode-default" to the <body> tag of your HTML page to enable dark mode by default (you must clear your browser's cookies and cache to see the changes!).
+
+	if (!$("#tt-mode-blast").length) {
+		$("body").append('<div id="tt-mode-blast" aria-hidden="true"><div class="tt-mode-blast-fill"></div></div>');
+	}
+
+	const $modeBlast = $("#tt-mode-blast");
+	const $modeFill = $modeBlast.find(".tt-mode-blast-fill");
+	let ttModeBlasting = false;
 
 	// Style switch button
 	$(".tt-style-switch").on("click", function() {
@@ -468,6 +486,93 @@
 		localStorage.setItem('tt-dark-mode-on', 'disabled');  // Save disabled state
 	}
 
+	function ttModeBlastEndRadius(x, y) {
+		const w = window.innerWidth;
+		const h = window.innerHeight;
+		return Math.hypot(Math.max(x, w - x), Math.max(y, h - y));
+	}
+
+	function ttApplyMode(goingDark) {
+		if (goingDark) {
+			enableDarkMode();
+		} else {
+			disableDarkMode();
+		}
+	}
+
+	function ttModeOrigin(event) {
+		const switchEl = document.querySelector(".tt-style-switch-inner") ||
+			document.querySelector(".tt-style-switch") ||
+			(event.currentTarget && event.currentTarget.getBoundingClientRect ? event.currentTarget : null);
+		const rect = switchEl.getBoundingClientRect();
+		const x = rect.left + rect.width / 2;
+		const y = rect.top + rect.height / 2;
+		return {
+			x: x,
+			y: y,
+			startR: Math.max(rect.width, rect.height) / 2,
+			endR: ttModeBlastEndRadius(x, y) + 24
+		};
+	}
+
+	function ttFinishModeBlast() {
+		$modeBlast.removeClass("is-on");
+		$("html").removeClass("tt-mode-vt");
+		$("body").removeClass("tt-mode-blasting");
+		ttModeBlasting = false;
+	}
+
+	function ttRunModeBlast(event, goingDark) {
+		const origin = ttModeOrigin(event);
+		const fromClip = "circle(" + origin.startR + "px at " + origin.x + "px " + origin.y + "px)";
+		const toClip = "circle(" + origin.endR + "px at " + origin.x + "px " + origin.y + "px)";
+
+		$("body").addClass("tt-mode-blasting");
+
+		if (typeof document.startViewTransition === "function") {
+			$("html").addClass("tt-mode-vt");
+			const transition = document.startViewTransition(function () {
+				ttApplyMode(goingDark);
+			});
+			transition.ready.then(function () {
+				document.documentElement.animate(
+					{ clipPath: [fromClip, toClip] },
+					{
+						duration: 520,
+						easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+						pseudoElement: "::view-transition-new(root)"
+					}
+				);
+			}).catch(function () {
+				ttApplyMode(goingDark);
+				ttFinishModeBlast();
+			});
+			transition.finished.finally(function () {
+				ttFinishModeBlast();
+			});
+			return;
+		}
+
+		const dest = goingDark ? "#16171a" : "#e9e6de";
+		const fill = $modeFill[0];
+		$modeBlast.addClass("is-on");
+		ttApplyMode(goingDark);
+		gsap.killTweensOf(fill);
+		gsap.set(fill, {
+			clearProps: "transform,scale,x,y,xPercent,yPercent,width,height,left,top,boxShadow",
+			backgroundColor: dest,
+			opacity: 0.28,
+			clipPath: fromClip
+		});
+		gsap.to(fill, {
+			clipPath: toClip,
+			opacity: 0,
+			duration: 0.45,
+			ease: "power3.out",
+			onComplete: ttFinishModeBlast
+		});
+	}
+
 	// Check if dark mode should be enabled by default
 	if ($('body').hasClass('tt-dark-mode-default') && darktMode !== 'enabled') {
 		enableDarkMode();
@@ -481,14 +586,22 @@
 	}
 
 	// Toggle dark mode on button click
-	$('.tt-style-switch').on('click', function() {
-		darktMode = localStorage.getItem('tt-dark-mode-on'); 
+	$('.tt-style-switch').on('click', function(event) {
+		if (ttModeBlasting) return;
+		darktMode = localStorage.getItem('tt-dark-mode-on');
+		const goingDark = darktMode !== 'enabled';
 
-		if (darktMode !== 'enabled') {
-			enableDarkMode();
-		} else {  
-			disableDarkMode(); 
+		if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+			if (goingDark) {
+				enableDarkMode();
+			} else {
+				disableDarkMode();
+			}
+			return;
 		}
+
+		ttModeBlasting = true;
+		ttRunModeBlast(event, goingDark);
 	});
 
 

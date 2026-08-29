@@ -22,6 +22,14 @@ yarn-error.log*
 .env*.local
 .env
 
+# FastAPI (shipped in this repo; local secrets and runtime stay out of git)
+backend/.venv/
+backend/venv/
+backend/data/
+backend/uploads/
+backend/__pycache__/
+backend/**/__pycache__/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

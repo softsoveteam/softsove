@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function PortfolioMasonryBoxedPage() {
+export default function WorkPage() {
   redirect("/crafted-things");
 }

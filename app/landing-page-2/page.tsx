@@ -679,7 +679,7 @@ export default function LandingPage2Page() {
       									<div className="tt-scrt-content">
 
       										<div className="tt-scrt-text">
-      											Highly motivated
+      											College desk. Global mess.
 											
       										</div> 
 
@@ -693,7 +693,7 @@ export default function LandingPage2Page() {
       									<div className="tt-scrt-content">
 
       										<div className="tt-scrt-text">
-      											Over 15 years of experience
+      											Since 2018. Still not beige.
 											
       										</div> 
 

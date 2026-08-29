@@ -122,6 +122,45 @@ body.tt-portfolio-slider-on:not(.tt-m-menu-open) .tt-style-switch {
 }
 
 
+/* Theme circle spread from the switch
+===================================== */
+#tt-mode-blast {
+	position: fixed;
+	inset: 0;
+	z-index: 2147483000;
+	overflow: hidden;
+	pointer-events: none;
+	visibility: hidden;
+}
+#tt-mode-blast.is-on {
+	visibility: visible;
+}
+.tt-mode-blast-fill {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #16171a;
+	clip-path: circle(0 at 50% 0);
+	will-change: clip-path, opacity;
+	pointer-events: none;
+}
+html.tt-mode-vt::view-transition-old(root),
+html.tt-mode-vt::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+html.tt-mode-vt::view-transition-old(root) {
+	z-index: 1;
+}
+html.tt-mode-vt::view-transition-new(root) {
+	z-index: 2;
+}
+body.tt-mode-blasting {
+	cursor: wait;
+}
+
+
 /* ------------------------------------------------------------- *
  * General
 /* ------------------------------------------------------------- */

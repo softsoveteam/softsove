@@ -149,7 +149,7 @@ export default function AboutMe2Page() {
       											<div className="tt-scrt-content">
 
       												<div className="tt-scrt-text">
-      													Highly motivated
+      													College desk. Global mess.
 													
       												</div> 
 
@@ -163,7 +163,7 @@ export default function AboutMe2Page() {
       											<div className="tt-scrt-content">
 
       												<div className="tt-scrt-text">
-      													15 years of experience
+      													Since 2018. Still not beige.
 													
       												</div> 
 
