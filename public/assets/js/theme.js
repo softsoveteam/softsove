@@ -2244,34 +2244,39 @@
 
 
 
-	// Contact form column: slide down into leftover space while the taller info column scrolls
-	// ========================================================================================
-	$(".tt-contact-form-col").each(function () {
-		const formCol = this;
-		const $row = $(formCol).closest(".tt-row");
-		const infoCol = $row.find(".tt-contact-info-col")[0];
-		if (!infoCol || !$row.length) return;
+	// Slide a shorter column down into leftover space (contact form + Strange Terrains GIFs)
+	// =====================================================================================
+	function ttBindScrollSlideCol(slideSelector, anchorSelector) {
+		$(slideSelector).each(function () {
+			const slideCol = this;
+			const $row = $(slideCol).closest(".tt-row");
+			const anchorCol = $row.find(anchorSelector)[0];
+			if (!anchorCol || !$row.length) return;
 
-		const getShift = () => {
-			if (window.innerWidth < 1025) return 0;
-			return Math.max(0, infoCol.offsetHeight - formCol.offsetHeight);
-		};
+			const getShift = () => {
+				if (window.innerWidth < 1025) return 0;
+				return Math.max(0, anchorCol.offsetHeight - slideCol.offsetHeight);
+			};
 
-		gsap.fromTo(formCol, {
-			y: 0
-		}, {
-			y: getShift,
-			ease: "none",
-			immediateRender: false,
-			scrollTrigger: {
-				trigger: $row[0],
-				start: "top 120px",
-				end: () => "+=" + getShift(),
-				scrub: true,
-				invalidateOnRefresh: true,
-			}
+			gsap.fromTo(slideCol, {
+				y: 0
+			}, {
+				y: getShift,
+				ease: "none",
+				immediateRender: false,
+				scrollTrigger: {
+					trigger: $row[0],
+					start: "top 120px",
+					end: () => "+=" + getShift(),
+					scrub: true,
+					invalidateOnRefresh: true,
+				}
+			});
 		});
-	});
+	}
+
+	ttBindScrollSlideCol(".tt-contact-form-col", ".tt-contact-info-col");
+	ttBindScrollSlideCol(".tt-scroll-slide-col", ".tt-scroll-slide-anchor");
 
 	setTimeout(function () {
 		if (typeof ScrollTrigger !== "undefined") {

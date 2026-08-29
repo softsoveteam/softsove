@@ -44,7 +44,7 @@ export function HiredMega({
       <div className="tt-plot-mega-inner">
         <div className="tt-plot-mega-shot">
           <span className="tt-text-image tt-timg-boxed tt-timg-tilted-2">
-            <img src="/assets/img/misc/text-img-8.gif" alt="" />
+            <img src="/assets/img/terrains/memes/hired.gif" alt="" />
           </span>
           <p className="tt-plot-mega-caught">Pull up a weird chair.</p>
         </div>

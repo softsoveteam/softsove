@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 
 const HOME_HREFS = ["/", "/landing-page-1", "/landing-page-2", "/landing-page-3"];
 const WORK_HREFS = ["/crafted-things", "/work", "/portfolio-masonry-boxed"];
+const TERRAIN_HREFS = ["/strange-terrains", "/industries"];
+const DARE_HREFS = ["/what-we-dare", "/services", "/services-2"];
 const CONTACT_HREFS = ["/lets-get-weird", "/contact", "/contact-simple"];
 const PLOT_HREFS = ["/how-we-got-weird", "/the-human", "/about", "/about-us", "/about-us-2", "/about-me"];
 
@@ -73,6 +75,138 @@ export function Header({ variant = "default" }: HeaderProps) {
                     <li className={navClass(isInSection(pathname, WORK_HREFS))}>
                       <a href="/crafted-things">Crafted Things</a>
                     </li>
+                    <li className={wrapClass(pathname, DARE_HREFS, "tt-submenu-wrap tt-submenu-master")}>
+                      <div className="tt-submenu-trigger">
+                        <a href="/what-we-dare">
+                          What We Dare
+                          <span className="tt-nav-label">14 dares</span>
+                        </a>
+                      </div>
+                      <div className="tt-submenu tt-plot-mega tt-dare-mega">
+                        <div className="tt-plot-mega-inner">
+                          <div className="tt-plot-mega-shot">
+                            <span className="tt-text-image tt-timg-boxed tt-timg-tilted-1">
+                              <img src="/assets/img/dares/memes/deal.gif" alt="" />
+                            </span>
+                            <p className="tt-plot-mega-caught">( No boring retainers )</p>
+                          </div>
+                          <div className="tt-plot-mega-copy">
+                            <p className="tt-plot-mega-eyebrow">( No boring retainers )</p>
+                            <p className="tt-plot-mega-kicker">Fourteen dares. Six kitchens. Zero beige.</p>
+                            <ul className="tt-plot-mega-list">
+                              <li>
+                                <a href="/what-we-dare#dare-build" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">Things that ship</span>
+                                  <span className="tt-plot-mega-card-title">The Build</span>
+                                  <span className="tt-plot-mega-card-note">Software, websites, apps, carts.</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/what-we-dare#dare-look" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">The tap that makes sense</span>
+                                  <span className="tt-plot-mega-card-title">The Look</span>
+                                  <span className="tt-plot-mega-card-note">UI, UX, brands that refuse beige.</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/what-we-dare#dare-brain" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">The clipboard funeral</span>
+                                  <span className="tt-plot-mega-card-title">The Brain</span>
+                                  <span className="tt-plot-mega-card-note">AI, automation, numbers with a pulse.</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/what-we-dare#dare-loud" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">The feed has to notice</span>
+                                  <span className="tt-plot-mega-card-title">The Loud</span>
+                                  <span className="tt-plot-mega-card-note">SEO and digital marketing.</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/what-we-dare#dare-spine" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">Rooms that stay up</span>
+                                  <span className="tt-plot-mega-card-title">The Spine</span>
+                                  <span className="tt-plot-mega-card-note">Cloud, locks, the desk that stays.</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/what-we-dare#dare-plot" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">The brief before the build</span>
+                                  <span className="tt-plot-mega-card-title">The Plot</span>
+                                  <span className="tt-plot-mega-card-note">IT consulting. No 90-page nap.</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li className={wrapClass(pathname, TERRAIN_HREFS, "tt-submenu-wrap tt-submenu-master")}>
+                      <div className="tt-submenu-trigger">
+                        <a href="/strange-terrains">
+                          Strange Terrains
+                          <span className="tt-nav-label">25 lanes</span>
+                        </a>
+                      </div>
+                      <div className="tt-submenu tt-plot-mega tt-terrain-mega">
+                        <div className="tt-plot-mega-inner">
+                          <div className="tt-plot-mega-shot">
+                            <span className="tt-text-image tt-timg-boxed tt-timg-tilted-2">
+                              <img src="/assets/img/terrains/memes/cat.gif" alt="" />
+                            </span>
+                            <p className="tt-plot-mega-caught">( No boring industries )</p>
+                          </div>
+                          <div className="tt-plot-mega-copy">
+                            <p className="tt-plot-mega-eyebrow">( No boring industries )</p>
+                            <p className="tt-plot-mega-kicker">Six terrains. Software to the republic.</p>
+                            <ul className="tt-plot-mega-list">
+                              <li>
+                                <a href="/strange-terrains#terrain-mobility" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">Wheels &amp; wings</span>
+                                  <span className="tt-plot-mega-card-title">Mobility</span>
+                                  <span className="tt-plot-mega-card-note">Aerospace, automotive, off road.</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/strange-terrains#terrain-healthcare" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">Care with a pulse</span>
+                                  <span className="tt-plot-mega-card-title">Healthcare</span>
+                                  <span className="tt-plot-mega-card-note">Devices, pharma, digital health.</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/strange-terrains#terrain-industrial" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">The thinking factory</span>
+                                  <span className="tt-plot-mega-card-title">Industrial</span>
+                                  <span className="tt-plot-mega-card-note">Automation, energy, robots, tons.</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/strange-terrains#terrain-hitech" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">Tiny parts. Loud ideas.</span>
+                                  <span className="tt-plot-mega-card-title">Hi-Tech</span>
+                                  <span className="tt-plot-mega-card-note">Electronics, security, silicon.</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/strange-terrains#terrain-technology" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">The unapologetic stack</span>
+                                  <span className="tt-plot-mega-card-title">Technology</span>
+                                  <span className="tt-plot-mega-card-note">Websites, apps, custom software, platforms.</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/strange-terrains#terrain-civic" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">India first</span>
+                                  <span className="tt-plot-mega-card-title">The Public Plot</span>
+                                  <span className="tt-plot-mega-card-note">Government, police, Sansad, campaigns.</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
                     <li className={wrapClass(pathname, PLOT_HREFS, "tt-submenu-wrap tt-submenu-master")}>
                       <div className="tt-submenu-trigger">
                         <a href="#">The Plot</a>
@@ -108,7 +242,7 @@ export function Header({ variant = "default" }: HeaderProps) {
                         </div>
                       </div>
                     </li>
-                    <li className={navClass(isInSection(pathname, CONTACT_HREFS))}>
+                    <li className={[navClass(isInSection(pathname, CONTACT_HREFS)), "hide-to-xlg"].filter(Boolean).join(" ")}>
                       <a href="/lets-get-weird">Let&apos;s Get Weird</a>
                     </li>
                     <li
@@ -149,7 +283,10 @@ export function Header({ variant = "default" }: HeaderProps) {
           </div>
 
           <a href="/lets-get-weird" className="tt-btn tt-btn-secondary hide-from-xlg tt-magnetic-item">
-            <span data-hover="Let's Talk">Let&apos;s Talk</span>
+            <span className="tt-btn-icon">
+              <i className="fa-solid fa-phone"></i>
+            </span>
+            <span data-hover="Let's Get Weird">Let&apos;s Get Weird</span>
           </a>
 
           <div className="tt-style-switch">

@@ -133,6 +133,19 @@ export default function LetsGetWeirdPage() {
       											</div>
 
       											<div className="margin-bottom-30 tt-anim-fadeinup">
+      												<h3 className="tt-contact-info-heading">The Other Desk</h3>
+      												<ul className="tt-list">
+      													<li>
+      														<a href="https://www.google.com/maps/search/?api=1&query=509-510+Aaker+City+Center+Opp+Sanket+India+Raj+marg+Anand+388001" className="tt-link" target="_blank" rel="noopener">
+      															509-510 Aaker City Center,<br />
+      															Opp Sanket India, Raj Marg,<br />
+      															Anand 388001, Gujarat, India
+      														</a>
+      													</li>
+      												</ul>
+      											</div>
+
+      											<div className="margin-bottom-30 tt-anim-fadeinup">
       												<h3 className="tt-contact-info-heading">Business Hours</h3>
       												<ul className="tt-list">
       													<li>Monday - Friday,</li>

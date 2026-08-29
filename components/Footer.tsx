@@ -67,8 +67,13 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="/services" className="tt-link">
-                    Services
+                  <a href="/strange-terrains" className="tt-link">
+                    Strange Terrains
+                  </a>
+                </li>
+                <li>
+                  <a href="/what-we-dare" className="tt-link">
+                    What We Dare
                   </a>
                 </li>
                 <li>
@@ -96,9 +101,25 @@ export function Footer() {
                     target="_blank"
                     rel="noopener"
                   >
+                    Headquarter
+                    <br />
                     5th Floor, Aakruti Business Hub,
                     <br />
                     Anand, Gujarat, India
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=509-510+Aaker+City+Center+Opp+Sanket+India+Raj+marg+Anand+388001"
+                    className="tt-link"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    The Other Desk
+                    <br />
+                    509-510 Aaker City Center,
+                    <br />
+                    Raj Marg, Anand 388001
                   </a>
                 </li>
                 <li>
