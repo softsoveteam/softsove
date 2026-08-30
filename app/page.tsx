@@ -1,11 +1,197 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Landing Page 2",
-  description: "Download Hektor - Creative Agency and Portfolio HTML Website Template that comes with rich features and well-commented code. Made by Themetorium.",
+  title: "Softsove",
+  description:
+    "Serious software with a weird desk. Design and development from Anand — Softsove ships work boards trust.",
 };
 
-export default function LandingPage2Page() {
+const STACK_LOGOS = [
+  "html",
+  "css",
+  "js",
+  "typescript",
+  "react",
+  "nextjs",
+  "vue",
+  "angular",
+  "node",
+  "express",
+  "python",
+  "fastapi",
+  "django",
+  "php",
+  "laravel",
+  "java",
+  "kotlin",
+  "dotnet",
+  "go",
+  "flutter",
+  "swift",
+  "electron",
+  "mysql",
+  "postgresql",
+  "mongodb",
+  "redis",
+  "sqlite",
+  "prisma",
+  "supabase",
+  "graphql",
+  "firebase",
+  "docker",
+  "kubernetes",
+  "aws",
+  "nginx",
+  "git",
+  "github",
+  "gitlab",
+  "vercel",
+  "bun",
+  "deno",
+  "sass",
+  "bootstrap",
+  "tailwind",
+  "jquery",
+  "wordpress",
+  "figma",
+  "elasticsearch",
+] as const;
+
+const CLIENT_MEMES = [
+  "/assets/img/terrains/civic.gif",
+  "/assets/img/home/memes/deal.gif",
+  "/assets/img/home/memes/nod.gif",
+  "/assets/img/terrains/memes/dog.gif",
+  "/assets/img/dares/memes/sponge.gif",
+];
+
+const SERVICE_MEMES = [
+  "/assets/img/dares/memes/deal.gif",
+  "/assets/img/dares/memes/cart.gif",
+  "/assets/img/dares/memes/lock.gif",
+  "/assets/img/dares/memes/sponge.gif",
+  "/assets/img/home/memes/judge.gif",
+];
+
+const INDUSTRY_MEMES = [
+  "/assets/img/terrains/memes/wizard.gif",
+  "/assets/img/terrains/memes/cat.gif",
+  "/assets/img/terrains/memes/tyson.gif",
+  "/assets/img/terrains/memes/math.gif",
+  "/assets/img/terrains/memes/moss.gif",
+  "/assets/img/home/memes/plot.gif",
+];
+
+const RESULT_MEMES = [
+  "/assets/img/home/memes/desk.gif",
+  "/assets/img/terrains/memes/office.gif",
+  "/assets/img/terrains/memes/hired.gif",
+  "/assets/img/home/memes/brain.gif",
+  "/assets/img/terrains/memes/pages.gif",
+];
+
+type HomeStripItem =
+  | {
+      kind: "names";
+      href: string;
+      title: string;
+      cursor: string;
+      names: string[];
+      memes: string[];
+    }
+  | {
+      kind: "stack";
+      href: string;
+      title: string;
+      cursor: string;
+    }
+  | {
+      kind: "cta";
+      href: string;
+      title: string;
+      cursor: string;
+    };
+
+const HOME_STRIP: HomeStripItem[] = [
+  {
+    kind: "names",
+    href: "/who-we-build-for#terrain-civic",
+    title: "Our Clients",
+    cursor: "Meet<br>Them",
+    memes: CLIENT_MEMES,
+    names: [
+      "Government of India",
+      "Gujarat Police",
+      "JigyaM",
+      "Soor Mandir",
+      "Toyomo",
+      "Dr.Prime",
+      "Mitesh Patel (MP Anand)",
+      "Hotel H",
+      "Glitter Events",
+      "Vivaah Hall",
+      "Lifegoal Finserve Limited",
+      "Sattva Skin Clinic",
+      "Vangi Foods",
+      "The Sweet Spots",
+      "PantryQuik",
+      "Diamon Salon",
+    ],
+  },
+  {
+    kind: "names",
+    href: "/what-we-dare",
+    title: "Our Services",
+    cursor: "What We<br>Dare",
+    memes: SERVICE_MEMES,
+    names: [
+      "Software Development",
+      "Website Development",
+      "Mobile Development",
+      "E-commerce",
+      "UI/UX Design",
+      "Branding",
+      "AI Solutions",
+      "Automation",
+      "Data & BI",
+      "SEO & Marketing",
+      "Cloud & DevOps",
+      "Cybersecurity",
+      "Support",
+      "IT Consulting",
+    ],
+  },
+  {
+    kind: "stack",
+    href: "/what-we-dare#dare-build",
+    title: "Technologies",
+    cursor: "The<br>Stack",
+  },
+  {
+    kind: "names",
+    href: "/who-we-build-for",
+    title: "Industries",
+    cursor: "Who We<br>Build For",
+    memes: INDUSTRY_MEMES,
+    names: ["Mobility", "Healthcare", "Industrial", "Hi-Tech", "Technology", "The Public Plot"],
+  },
+  {
+    kind: "names",
+    href: "/crafted-things",
+    title: "Results",
+    cursor: "See the<br>Work",
+    memes: RESULT_MEMES,
+    names: ["40+ countries", "Anand 2018", "Gov + Police plots", "Zero beige briefs", "Shipped with a pulse"],
+  },
+  {
+    kind: "cta",
+    href: "/crafted-things",
+    title: "Crafted Things",
+    cursor: "View<br>Work",
+  },
+];
+
+export default function HomePage() {
   return (
     <>
       <div id="page-header" className="ph-full ph-full-m ph-full-m ph-cap-xlg ph-image-parallax ph-caption-parallax">
@@ -38,17 +224,24 @@ export default function LandingPage2Page() {
 
       						<div className="ph-caption">
       							<div className="ph-caption-inner">
-      								<h2 className="ph-caption-subtitle">( Hektor )</h2>
+      								<h2 className="ph-caption-subtitle">( No boring stacks )</h2>
 
 								
       								<h1 className="ph-caption-title">
-      									Time to Make<br /> Boring 
-      									<span className="tt-text-image tt-timg-fixed tt-timg-boxed tt-timg-tilted-1"><img src="/assets/img/misc/text-img-8.gif" alt="Image" /></span> 
-      									Illegal
+      									We ship what boards trust
+      									<span className="tt-text-image tt-timg-fixed tt-timg-boxed tt-timg-tilted-1">
+      										<img src="/assets/img/home/memes/deal.gif" alt="" />
+      									</span>
+      									<br />
+      									without looking like a brochure
+      									<span className="tt-text-image tt-timg-fixed tt-timg-boxed tt-timg-tilted-2">
+      										<img src="/assets/img/home/memes/judge.gif" alt="" />
+      									</span>
       								</h1>
 
       								<div className="ph-caption-description max-width-700">
-      									Design and development, done with passion,<br /> curiosity, and a little bit of mischief.
+      									Serious software. Weird desks.<br />
+      									Design and engineering from Anand — curiosity on the clock, mischief after hours.
       								</div>
       							</div> 
       						</div>  
@@ -97,144 +290,65 @@ export default function LandingPage2Page() {
 					
       					<div className="tt-section">
       						<div className="tt-section-inner">
-
-							
-      							<div className="tt-portfolio-scrolling tt-pscr-alter-hover tt-pscr-boxed tt-pscr-tilted tt-pscr-tilted-m" data-scroll-speed="300">
-
-								 
-      								<a href="/single-project-1" className="tt-pscr-item tt-anim-fadeinup" data-cursor="View<br>Project">
-      									<div className="tt-pscr-item-inner">
-      										<div className="tt-pscr-item-content">
-      											<h2 className="tt-pscr-item-title">Aero Dog</h2>
-
-											
-      											<picture className="tt-pscr-item-image">
-												
-      												<source srcSet="/assets/img/portfolio/800/portfolio-1-800.jpg" media="(max-width: 768px)" />
-												
-      												<img src="/assets/img/portfolio/400/portfolio-1-400.jpg" loading="lazy" alt="Image" />
-      											</picture>
-
-      										</div> 
-      									</div> 
-
-      									<div className="tt-pscr-item-categories">
-      										<div className="tt-pscr-item-category">Branding</div>
-										
-      									</div>
-      								</a>
-								
-
-								 
-      								<a href="/single-project-2" className="tt-pscr-item tt-anim-fadeinup" data-cursor="View<br>Project">
-      									<div className="tt-pscr-item-inner">
-      										<div className="tt-pscr-item-content">
-      											<h2 className="tt-pscr-item-title">Luxe Geometry</h2>
-
-											
-      											<picture className="tt-pscr-item-image">
-												
-      												<source srcSet="/assets/img/portfolio/800/portfolio-2-800.jpg" media="(max-width: 768px)" />
-												
-      												<img src="/assets/img/portfolio/400/portfolio-2-400.jpg" loading="lazy" alt="Image" />
-      											</picture>
-
-      										</div> 
-      									</div> 
-
-      									<div className="tt-pscr-item-categories">
-      										<div className="tt-pscr-item-category">Branding</div>
-										
-      									</div>
-      								</a>
-								
-
-								 
-      								<a href="/single-project-3" className="tt-pscr-item tt-anim-fadeinup" data-cursor="View<br>Project">
-      									<div className="tt-pscr-item-inner">
-      										<div className="tt-pscr-item-content">
-      											<h2 className="tt-pscr-item-title">Virtual Glam</h2>
-
-											
-      											<picture className="tt-pscr-item-image">
-												
-      												<source srcSet="/assets/img/portfolio/800/portfolio-3-800.jpg" media="(max-width: 768px)" />
-												
-      												<img src="/assets/img/portfolio/400/portfolio-3-400.jpg" loading="lazy" alt="Image" />
-      											</picture>
-
-      										</div> 
-      									</div> 
-
-      									<div className="tt-pscr-item-categories">
-      										<div className="tt-pscr-item-category">Digital</div>
-										
-      									</div>
-      								</a>
-								
-
-								 
-      								<a href="/single-project-4" className="tt-pscr-item tt-anim-fadeinup" data-cursor="View<br>Project">
-      									<div className="tt-pscr-item-inner">
-      										<div className="tt-pscr-item-content">
-      											<h2 className="tt-pscr-item-title">Alfa Race</h2>
-
-											
-      											<picture className="tt-pscr-item-image">
-												
-      												<source srcSet="/assets/img/portfolio/800/portfolio-4-800.jpg" media="(max-width: 768px)" />
-												
-      												<img src="/assets/img/portfolio/400/portfolio-4-400.jpg" loading="lazy" alt="Image" />
-      											</picture>
-
-      										</div> 
-      									</div> 
-
-      									<div className="tt-pscr-item-categories">
-      										<div className="tt-pscr-item-category">Artistic</div>
-										
-      									</div>
-      								</a>
-								
-
-								  
-      								<a href="/single-project-5" className="tt-pscr-item tt-anim-fadeinup" data-cursor="View<br>Project">
-      									<div className="tt-pscr-item-inner">
-      										<div className="tt-pscr-item-content">
-      											<h2 className="tt-pscr-item-title">Modern Elegance</h2>
-
-											
-      											<picture className="tt-pscr-item-image">
-												
-      												<source srcSet="/assets/img/portfolio/800/portfolio-5-800.jpg" media="(max-width: 768px)" />
-												
-      												<img src="/assets/img/portfolio/400/portfolio-5-400.jpg" loading="lazy" alt="Image" />
-      											</picture>
-
-      										</div> 
-      									</div> 
-
-      									<div className="tt-pscr-item-categories">
-      										<div className="tt-pscr-item-category">Branding</div>
-										
-      									</div>
-      								</a>
-								
-
-								 
-      								<a href="/portfolio-scrolling-boxed-tilted" className="tt-pscr-item tt-pscri-all-projects tt-pscri-reverse-color tt-pscri-reverse-color-m tt-anim-fadeinup" data-cursor="View All<br>Projects">
-      									<div className="tt-pscr-item-inner">
-      										<div className="tt-pscr-item-content">
-      											<h2 className="tt-pscr-item-title">View All Projects</h2>
-      										</div> 
-      									</div> 
-      								</a>
-								
-
+      							<div
+      								className="tt-portfolio-scrolling tt-pscr-alter-hover tt-pscr-boxed tt-pscr-tilted tt-home-pscr"
+      								data-scroll-speed="300"
+      							>
+      								{HOME_STRIP.map((item) => (
+      									<a
+      										key={item.title}
+      										href={item.href}
+      										className={[
+      											"tt-pscr-item",
+      											"tt-anim-fadeinup",
+      											item.kind === "cta" ? "tt-pscri-all-projects tt-pscri-reverse-color" : undefined,
+      											item.kind === "stack" ? "tt-home-pscr-stack" : undefined,
+      											item.kind === "cta" ? "no-image" : undefined,
+      										]
+      											.filter(Boolean)
+      											.join(" ")}
+      										data-cursor={item.cursor}
+      									>
+      										<div className="tt-pscr-item-inner">
+      											<div className="tt-pscr-item-content">
+      												<h2 className="tt-pscr-item-title">{item.title}</h2>
+      												{item.kind === "names"
+      													? item.names.map((name, index) => (
+      															<span key={`${name}-${index}`} className="tt-home-pscr-pair">
+      																<span className="tt-home-pscr-star" aria-hidden="true">
+      																	*
+      																</span>
+      																<span className="tt-pscr-item-title tt-home-pscr-name">{name}</span>
+      																<span className="tt-pscr-item-image">
+      																	<img
+      																		src={item.memes[index % item.memes.length]}
+      																		loading="lazy"
+      																		alt=""
+      																	/>
+      																</span>
+      															</span>
+      														))
+      													: null}
+      												{item.kind === "stack"
+      													? STACK_LOGOS.map((logo, index) => (
+      															<span key={logo} className="tt-home-pscr-pair">
+      																{index > 0 ? (
+      																	<span className="tt-home-pscr-star" aria-hidden="true">
+      																		*
+      																	</span>
+      																) : null}
+      																<span className="tt-pscr-item-image tt-stack-logo">
+      																	<img src={`/assets/img/stack/${logo}.svg`} loading="lazy" alt="" />
+      																</span>
+      															</span>
+      														))
+      													: null}
+      											</div>
+      										</div>
+      									</a>
+      								))}
       							</div>
-							
-
-      						</div> 
+      						</div>
       					</div>
 					
 
