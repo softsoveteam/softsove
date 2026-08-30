@@ -293,6 +293,7 @@ export default function HomePage() {
       							<div
       								className="tt-portfolio-scrolling tt-pscr-alter-hover tt-pscr-boxed tt-pscr-tilted tt-home-pscr"
       								data-scroll-speed="300"
+      								data-scroll-speed-m="42"
       							>
       								{HOME_STRIP.map((item) => (
       									<a

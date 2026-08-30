@@ -1931,6 +1931,7 @@
 	$(".tt-portfolio-scrolling").each(function () {
 		let $this = $(this);
 		let contentSelector = ".tt-pscr-item-content";
+		let isHomePscr = $this.hasClass("tt-home-pscr");
 
 		$this.find(".tt-pscr-item").each(function () {
 			let $item = $(this);
@@ -1938,16 +1939,18 @@
 			// Clone item content if not already directly inside
 			let clonedItems = [];
 			function pscrClone() {
-				let minWidth = 769; // window minimum width
+				// Home strip keeps marquee clones on mobile too
+				let minWidth = isHomePscr ? 0 : 769;
+				let cloneCount = isHomePscr && window.innerWidth < 769 ? 4 : 5;
 
 				if (window.innerWidth >= minWidth && clonedItems.length === 0) {
 					// Only clone if there are no clones already
-					let pscrCloned = $item.find(contentSelector);
-					for (let i = 0; i < 5; i++) {
-						let cloned = pscrCloned.clone().insertAfter(pscrCloned).addClass("tt-pscr-cloned");
+					let pscrCloned = $item.find(contentSelector).first();
+					for (let i = 0; i < cloneCount; i++) {
+						let cloned = pscrCloned.clone().insertAfter($item.find(contentSelector).last()).addClass("tt-pscr-cloned");
 						clonedItems.push(cloned);  // Store reference
 					}
-				} else if (window.innerWidth < minWidth) {
+				} else if (!isHomePscr && window.innerWidth < minWidth) {
 					// Remove all cloned items when window width is less than minWidth
 					clonedItems.forEach(function(cloned) {
 						cloned.remove();
@@ -1970,14 +1973,19 @@
 
 
 		// Scrolling speed (hover scrolling is disabled on mobile devices!)
-		if (!tt_isMobile) { 
+		// Home strip auto-marquees on mobile at a lower speed.
+		if (!tt_isMobile || isHomePscr) { 
 			function pscrScrollingSpeed(container) {
 				const speedAttr = container.getAttribute("data-scroll-speed");
-				const baseSpeed = parseFloat(speedAttr) || 300; // Default speed
+				const speedAttrM = container.getAttribute("data-scroll-speed-m");
+				let baseSpeed = parseFloat(speedAttr) || 300; // Default speed
+				if (isHomePscr && window.innerWidth < 769) {
+					baseSpeed = parseFloat(speedAttrM) || 48; // Low speed on mobile
+				}
 
 				const contents = container.querySelectorAll(contentSelector);
 				contents.forEach(content => {
-					const contentWidth = content.offsetWidth;
+					const contentWidth = content.offsetWidth || 1;
 					const duration = contentWidth / baseSpeed;
 					content.style.animationDuration = `${duration}s`;
 				});
