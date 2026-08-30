@@ -410,3 +410,24 @@ body.tt-dark-mode-on .tt-comment,
 body.tt-dark-mode-on .sidebar-widget {
 	background-color: #222426;
 }
+
+/* Home tech stack — keep logos punchy on dark */
+body.tt-dark-mode-on .tt-home-pscr .tt-stack-logo {
+	background: #e9e6de;
+	border-color: #9d2e13;
+	box-shadow: 3px 3px 0 0 #9d2e13;
+}
+body.tt-dark-mode-on .tt-home-pscr .tt-stack-logo img {
+	filter: contrast(1.08) saturate(1.05);
+}
+body.tt-dark-mode-on .tt-home-pscr .tt-home-pscr-star {
+	color: #d5350e;
+}
+body.tt-dark-mode-on .tt-home-pscr .tt-pscr-item.tt-home-pscr-stack {
+	background-color: #1c1e21 !important;
+	border-color: #e9e6de !important;
+}
+body.tt-dark-mode-on .tt-portfolio-scrolling.tt-home-pscr .tt-pscr-item.tt-home-pscr-stack {
+	background-color: #1c1e21 !important;
+	border-color: #e9e6de !important;
+}

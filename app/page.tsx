@@ -73,6 +73,23 @@ const SERVICE_MEMES = [
   "/assets/img/home/memes/judge.gif",
 ];
 
+const HOME_SERVICES = [
+  { id: "software", title: "Software Development", note: "Custom software that does not nap in a boilerplate. If you can picture it, the desk starts arguing how.", kitchen: "dare-build" },
+  { id: "website", title: "Website Development", note: "Pages that ship with a pulse. Not a template with a new logo glued on.", kitchen: "dare-build" },
+  { id: "mobile", title: "Mobile Development", note: "Apps that live in a hand and still have manners. iOS, Android, both, neither — we occupy the tap.", kitchen: "dare-build" },
+  { id: "ecom", title: "E-commerce Solutions", note: "Shops that sell instead of decorate. Checkout without the beige maze.", kitchen: "dare-build" },
+  { id: "uiux", title: "UI/UX Design", note: "Flows a human would actually finish. Pretty is easy. Clear is the dare.", kitchen: "dare-look" },
+  { id: "brand", title: "Branding & Creative Services", note: "Marks, decks, and mischief that do not look like the neighbor's startup.", kitchen: "dare-look" },
+  { id: "ai", title: "AI Solutions", note: "Models that earn the room. Not a chatbot sticker slapped on a tired form.", kitchen: "dare-brain" },
+  { id: "auto", title: "Business Process Automation", note: "Busywork gets a quiet burial. Humans keep the plot. Software keeps the grind.", kitchen: "dare-brain" },
+  { id: "data", title: "Data Analytics & BI", note: "Dashboards that tell the truth. If the chart cannot dare a decision, we rebuild it.", kitchen: "dare-brain" },
+  { id: "seo", title: "SEO & Digital Marketing", note: "Search, ads, content, and the mischief that makes a stranger become a brief.", kitchen: "dare-loud" },
+  { id: "cloud", title: "Cloud & DevOps", note: "Deploys that do not pray. Pipelines, clouds, and quiet heat.", kitchen: "dare-spine" },
+  { id: "cyber", title: "Cybersecurity", note: "Threats get weird. So do we. Security that holds without the scare pamphlet.", kitchen: "dare-spine" },
+  { id: "support", title: "Maintenance & Support", note: "After launch is still the plot. Fixes, watch, and a human on the line.", kitchen: "dare-spine" },
+  { id: "consult", title: "IT Consulting", note: "We sit with the mess first. Then we dare a stack. No slide deck that dies in a drawer.", kitchen: "dare-plot" },
+] as const;
+
 const INDUSTRY_MEMES = [
   "/assets/img/terrains/memes/wizard.gif",
   "/assets/img/terrains/memes/cat.gif",
@@ -89,6 +106,50 @@ const RESULT_MEMES = [
   "/assets/img/home/memes/brain.gif",
   "/assets/img/terrains/memes/pages.gif",
 ];
+
+const HOME_CLIENTS = [
+  "Government of India",
+  "Gujarat Police",
+  "JigyaM",
+  "Soor Mandir",
+  "Toyomo",
+  "Dr.Prime",
+  "Mitesh Patel (MP Anand)",
+  "Hotel H",
+  "Glitter Events",
+  "Vivaah Hall",
+  "Lifegoal Finserve Limited",
+  "Sattva Skin Clinic",
+  "Vangi Foods",
+  "The Sweet Spots",
+  "PantryQuik",
+  "Diamon Salon",
+] as const;
+
+/** Person names: reply with a name for each client and we drop them in. */
+const HOME_TESTIMONIALS = [
+  { client: "JigyaM", person: "", quote: "They argued the product until it made sense. Then they built it like they meant it." },
+  { client: "Soor Mandir", person: "", quote: "Digital that still felt like music — warm, clear, and not a template with a logo glued on." },
+  { client: "Toyomo", person: "", quote: "From Anand desk to our mess overseas. Fast, sharp, and somehow still funny on the calls." },
+  { client: "Mitesh Patel (MP Anand)", person: "", quote: "Local plot, serious software. They get Anand — and they ship like boards are watching." },
+  { client: "Hotel H", person: "", quote: "Guests book the vibe. Softsove built a site that actually sells the stay." },
+  { client: "Glitter Events", person: "", quote: "Chaos is the job. They made the digital side behave without killing the sparkle." },
+  { client: "Vivaah Hall", person: "", quote: "Weddings are loud. The site finally kept up — clean booking, zero beige maze." },
+  { client: "Lifegoal Finserve Limited", person: "", quote: "Finance without the nap deck. Softsove made trust look modern and still feel safe." },
+  { client: "Sattva Skin Clinic", person: "", quote: "Calm UI, clear paths, no clinic-site clichés. Patients find what they need." },
+  { client: "Vangi Foods", person: "", quote: "They got the brand spice right — digital that tastes like us, not a stock grocery theme." },
+  { client: "The Sweet Spots", person: "", quote: "Desserts need delight. Softsove made the online bit as fun as the counter." },
+  { client: "Diamon Salon", person: "", quote: "Looks matter here. Softsove made the brand refuse beige and still book chairs." },
+] as const;
+
+const DESK_PLOT = [
+  { title: "Steal the brief", note: "We sit with the mess first. No 90-page nap.", tag: "Listen", href: "/lets-get-weird" },
+  { title: "Argue the stack", note: "Boards trust software. Beige never gets a seat.", tag: "Plot", href: "/what-we-dare" },
+  { title: "Build with a pulse", note: "Design and engineering that still argues until it ships.", tag: "Craft", href: "/crafted-things" },
+  { title: "Ship Monday-ready", note: "Deploys that do not pray. Quiet heat.", tag: "Launch", href: "/what-we-dare#dare-spine" },
+  { title: "Stay after launch", note: "The desk that does not ghost. Fixes, watch, humans.", tag: "Spine", href: "/what-we-dare#dare-spine" },
+  { title: "Keep it weird", note: "Anand 2018. Still not beige. Curiosity on the clock.", tag: "Culture", href: "/how-we-got-weird" },
+] as const;
 
 type HomeStripItem =
   | {
@@ -119,24 +180,7 @@ const HOME_STRIP: HomeStripItem[] = [
     title: "Our Clients",
     cursor: "Meet<br>Them",
     memes: CLIENT_MEMES,
-    names: [
-      "Government of India",
-      "Gujarat Police",
-      "JigyaM",
-      "Soor Mandir",
-      "Toyomo",
-      "Dr.Prime",
-      "Mitesh Patel (MP Anand)",
-      "Hotel H",
-      "Glitter Events",
-      "Vivaah Hall",
-      "Lifegoal Finserve Limited",
-      "Sattva Skin Clinic",
-      "Vangi Foods",
-      "The Sweet Spots",
-      "PantryQuik",
-      "Diamon Salon",
-    ],
+    names: [...HOME_CLIENTS],
   },
   {
     kind: "names",
@@ -144,22 +188,7 @@ const HOME_STRIP: HomeStripItem[] = [
     title: "Our Services",
     cursor: "What We<br>Dare",
     memes: SERVICE_MEMES,
-    names: [
-      "Software Development",
-      "Website Development",
-      "Mobile Development",
-      "E-commerce",
-      "UI/UX Design",
-      "Branding",
-      "AI Solutions",
-      "Automation",
-      "Data & BI",
-      "SEO & Marketing",
-      "Cloud & DevOps",
-      "Cybersecurity",
-      "Support",
-      "IT Consulting",
-    ],
+    names: HOME_SERVICES.map((service) => service.title),
   },
   {
     kind: "stack",
@@ -227,16 +256,17 @@ export default function HomePage() {
       								<h2 className="ph-caption-subtitle">( No boring stacks )</h2>
 
 								
-      								<h1 className="ph-caption-title">
+      								<h1 className="ph-caption-title ph-caption-title-breaks">
       									We ship what boards trust
       									<span className="tt-text-image tt-timg-fixed tt-timg-boxed tt-timg-tilted-1">
       										<img src="/assets/img/home/memes/deal.gif" alt="" />
       									</span>
       									<br />
-      									without looking like a brochure
+      									without looking like
       									<span className="tt-text-image tt-timg-fixed tt-timg-boxed tt-timg-tilted-2">
       										<img src="/assets/img/home/memes/judge.gif" alt="" />
       									</span>
+      									{" "}a brochure
       								</h1>
 
       								<div className="ph-caption-description max-width-700">
@@ -363,8 +393,8 @@ export default function HomePage() {
 
 									
       									<div className="tt-heading tt-heading-lg">
-      										<h3 className="tt-heading-subtitle tt-anim-lines">( Why us? )</h3>
-      										<h2 className="tt-heading-title tt-anim-lines">We’re not just another creative agency, we’re a collaborative partner invested in your success.</h2> 
+      										<h3 className="tt-heading-subtitle tt-anim-lines">( No boring partners )</h3>
+      										<h2 className="tt-heading-title tt-anim-lines">We ship serious software with a weird desk — boards trust the stack, beige never gets a seat.</h2> 
       									</div>
 									
 
@@ -374,11 +404,16 @@ export default function HomePage() {
       								</div> 
 
       								<div className="tt-col-lg-4 tt-align-self-center">
-      									<p className="tt-anim-lines">From strategy to execution, we blend design thinking with digital expertise to create work that’s both beautiful and effective.</p>
+      									<p className="tt-anim-lines">Anand plot. Government briefs to startup mischief. Design and engineering that still argues until it ships.</p>
 
-      									<a href="/about-us" className="tt-btn tt-btn-secondary tt-magnetic-item tt-anim-fadeinup">
-      										<span data-hover="Read More">Read More</span>
-      									</a>
+      									<div className="tt-anim-fadeinup">
+      										<a href="/lets-get-weird" className="tt-btn tt-btn-secondary tt-magnetic-item">
+      											<span data-hover="Contact">Contact</span>
+      										</a>
+      										<a href="/crafted-things" className="tt-btn tt-btn-outline tt-magnetic-item">
+      											<span data-hover="Our Work">Our Work</span>
+      										</a>
+      									</div>
       								</div> 
       							</div>
 
@@ -393,7 +428,7 @@ export default function HomePage() {
 
 							
       							<div className="tt-clipper">
-      								<a href="/assets/vids/video-showreel/video-showreel.mp4" className="tt-clipper-inner" data-cursor="Play<br>Reel" data-fancybox="" data-caption="Our awesome showreel. :)">
+      								<a href="/assets/vids/video-showreel/video-showreel.mp4" className="tt-clipper-inner" data-cursor="Play<br>Reel" data-fancybox="" data-caption="Serious software. Weird desk. AI in the mix.">
 
 									
 									
@@ -429,9 +464,9 @@ export default function HomePage() {
 
 							
       							<div className="tt-heading tt-heading-xxxlg tt-heading-center">
-      								<h3 className="tt-heading-subtitle tt-anim-lines">( What We Do )</h3>
-      								<h2 className="tt-heading-title tt-anim-characters">Services</h2> 
-      								<p className="max-width-600 tt-anim-lines">End-to-end digital services that elevate your online presence, connect you with your audience, and turn ideas into real, impactful results.</p>
+      								<h3 className="tt-heading-subtitle tt-anim-lines">( No boring retainers )</h3>
+      								<h2 className="tt-heading-title tt-anim-characters">What We Dare</h2> 
+      								<p className="max-width-600 tt-anim-lines">Fourteen plots. Six kitchens. Zero beige menus. Pick a dare — the desk starts arguing how.</p>
       							</div>
 							
 
@@ -447,11 +482,12 @@ export default function HomePage() {
 							
       							<div className="tt-accordion tt-acc-xlg tt-acc-counter tt-acc-boxed tt-acc-tilted">
 
-      								<div className="tt-accordion-item tt-anim-fadeinup">
+								{HOME_SERVICES.map((service) => (
+      								<div key={service.id} className="tt-accordion-item tt-anim-fadeinup">
       									<div className="tt-accordion-heading">
       										<div className="tt-acc-head cursor-alter">
       											<div className="tt-acc-head-inner">
-      												<h3 className="tt-acc-head-title">Digital Strategy</h3>
+      												<h3 className="tt-acc-head-title">{service.title}</h3>
       											</div>
       										</div>
       										<div className="tt-accordion-caret">
@@ -469,9 +505,7 @@ export default function HomePage() {
       										<div className="tt-row">
       											<div className="tt-col-lg-8">
 
-      												<p>We create data-driven digital strategies that align with your business goals and deliver measurable growth. Using audience insights, competitor analysis, and clear KPIs, we build a focused roadmap that strengthens your online presence and improves results across key channels.</p>
-
-      												<p>Whether you want more visibility, better engagement, or higher conversions, we turn real opportunities into practical actions and help you grow with confidence.</p>
+      												<p>{service.note}</p>
 
       											</div> 
 
@@ -480,7 +514,7 @@ export default function HomePage() {
 
       											<div className="tt-col-lg-3">
 
-      												<a href="/dummy" className="tt-btn tt-btn-secondary tt-btn-round tt-magnetic-item" target="_blank">
+      												<a href={`/what-we-dare#${service.kitchen}`} className="tt-btn tt-btn-secondary tt-btn-round tt-magnetic-item">
       													<span data-hover="More">More</span>
       												</a>
 
@@ -488,179 +522,8 @@ export default function HomePage() {
       										</div> 
 
       									</div> 
-      								</div> 
-
-      								<div className="tt-accordion-item tt-anim-fadeinup">
-      									<div className="tt-accordion-heading">
-      										<div className="tt-acc-head cursor-alter">
-      											<div className="tt-acc-head-inner">
-      												<h3 className="tt-acc-head-title">Branding &amp; Identity</h3>
-      											</div>
-      										</div>
-      										<div className="tt-accordion-caret">
-      											<div className="tt-accordion-caret-inner tt-magnetic-item">
-      												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      													<path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"></path>
-      												</svg>
-      											</div> 
-      										</div> 
-      									</div> 
-
-									
-      									<div className="tt-accordion-content max-width-1600">
-
-      										<div className="tt-row">
-      											<div className="tt-col-lg-8">
-
-      												<p>We build brands that truly connect. From logo design and color systems to voice and messaging, we create cohesive identities that reflect your values and make your business memorable.</p>
-
-      												<p>Whether you’re launching something new or refreshing an existing brand, we guide you through a clear process and ensure every element works together to tell a consistent, authentic story that stands out.</p>
-
-      											</div> 
-
-      											<div className="tt-col-lg-1">
-      											</div> 
-
-      											<div className="tt-col-lg-3">
-
-      												<a href="/dummy" className="tt-btn tt-btn-secondary tt-btn-round tt-magnetic-item" target="_blank">
-      													<span data-hover="More">More</span>
-      												</a>
-
-      											</div> 
-      										</div> 
-
-      									</div> 
-      								</div> 
-
-      								<div className="tt-accordion-item tt-anim-fadeinup">
-      									<div className="tt-accordion-heading">
-      										<div className="tt-acc-head cursor-alter">
-      											<div className="tt-acc-head-inner">
-      												<h3 className="tt-acc-head-title">UI / UX Design</h3>
-      											</div>
-      										</div>
-      										<div className="tt-accordion-caret">
-      											<div className="tt-accordion-caret-inner tt-magnetic-item">
-      												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      													<path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"></path>
-      												</svg>
-      											</div> 
-      										</div> 
-      									</div> 
-
-									
-      									<div className="tt-accordion-content max-width-1600">
-
-      										<div className="tt-row">
-      											<div className="tt-col-lg-8">
-
-      												<p>We design intuitive, engaging digital experiences that balance clarity and visual appeal. Using user-centered principles and a solid understanding of your audience, we create wireframes, prototypes, and polished interfaces that are easy to navigate and built to perform reliably across devices and browsers.</p>
-
-      												<p>From websites to apps and custom platforms, every interaction is purposeful, natural, and focused on usability, engagement, and real-world results.</p>
-
-      											</div> 
-
-      											<div className="tt-col-lg-1">
-      											</div> 
-
-      											<div className="tt-col-lg-3">
-
-      												<a href="/dummy" className="tt-btn tt-btn-secondary tt-btn-round tt-magnetic-item" target="_blank">
-      													<span data-hover="More">More</span>
-      												</a>
-
-      											</div> 
-      										</div> 
-
-      									</div> 
-      								</div> 
-
-      								<div className="tt-accordion-item tt-anim-fadeinup">
-      									<div className="tt-accordion-heading">
-      										<div className="tt-acc-head cursor-alter">
-      											<div className="tt-acc-head-inner">
-      												<h3 className="tt-acc-head-title">Web Design</h3>
-      											</div>
-      										</div>
-      										<div className="tt-accordion-caret">
-      											<div className="tt-accordion-caret-inner tt-magnetic-item">
-      												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      													<path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"></path>
-      												</svg>
-      											</div> 
-      										</div> 
-      									</div> 
-
-									
-      									<div className="tt-accordion-content max-width-1600">
-
-      										<div className="tt-row">
-      											<div className="tt-col-lg-8">
-
-      												<p>We turn ideas into custom websites that reflect your brand and deliver real results. Each design is tailored to your goals, optimized for speed and performance, and built to engage visitors and support conversions.</p>
-
-      												<p>From responsive layouts and clear navigation to reliable performance across devices and browsers, every detail is crafted for usability and impact. Whether it’s a portfolio, business site, or full e-commerce platform, we bring your vision to life with a site that works as well as it looks.</p>
-
-      											</div> 
-
-      											<div className="tt-col-lg-1">
-      											</div> 
-
-      											<div className="tt-col-lg-3">
-
-      												<a href="/dummy" className="tt-btn tt-btn-secondary tt-btn-round tt-magnetic-item" target="_blank">
-      													<span data-hover="More">More</span>
-      												</a>
-
-      											</div> 
-      										</div> 
-
-      									</div> 
-      								</div> 
-
-      								<div className="tt-accordion-item tt-anim-fadeinup">
-      									<div className="tt-accordion-heading">
-      										<div className="tt-acc-head cursor-alter">
-      											<div className="tt-acc-head-inner">
-      												<h3 className="tt-acc-head-title">Product Design</h3>
-      											</div>
-      										</div>
-      										<div className="tt-accordion-caret">
-      											<div className="tt-accordion-caret-inner tt-magnetic-item">
-      												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      													<path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"></path>
-      												</svg>
-      											</div> 
-      										</div> 
-      									</div> 
-
-									
-      									<div className="tt-accordion-content max-width-1600">
-
-      										<div className="tt-row">
-      											<div className="tt-col-lg-8">
-
-      												<p>We design products with purpose, focusing on real problems and real users. By combining research, thoughtful functionality, and refined aesthetics, we create solutions that are practical, intuitive, and built to last.</p>
-
-      												<p>From concept and prototyping to final design, every step is guided by usability and clear business goals. Whether digital or physical, the result is a product people enjoy using and businesses can rely on.</p>
-
-      											</div> 
-
-      											<div className="tt-col-lg-1">
-      											</div> 
-
-      											<div className="tt-col-lg-3">
-
-      												<a href="/dummy" className="tt-btn tt-btn-secondary tt-btn-round tt-magnetic-item" target="_blank">
-      													<span data-hover="More">More</span>
-      												</a>
-
-      											</div> 
-      										</div> 
-
-      									</div> 
-      								</div> 
+      								</div>
+								))}
 
       							</div>
 							
@@ -685,15 +548,15 @@ export default function HomePage() {
 
 											
       											<div className="tt-heading tt-heading-xlg">
-      												<h3 className="tt-heading-subtitle tt-anim-lines">( Testimonials )</h3>
+      												<h3 className="tt-heading-subtitle tt-anim-lines">( No boring praise )</h3>
       												<h2 className="tt-heading-title tt-anim-characters">What<br /> They<br /> Say</h2> 
       											</div>
 											
 
-      											<p className="tt-anim-lines">Genuine words from the people we have had the pleasure to work with.</p>
+      											<p className="tt-anim-lines">Words from the desks we actually shipped for — gov briefs to salon chairs.</p>
 
-      											<a href="/testimonials" className="tt-btn tt-btn-secondary tt-magnetic-item margin-top-20 tt-anim-fadeinup">
-      												<span data-hover="Read All Testimonials">Read All Testimonials</span>
+      											<a href="/lets-get-weird" className="tt-btn tt-btn-secondary tt-magnetic-item margin-top-20 tt-anim-fadeinup">
+      												<span data-hover="Join the Plot">Join the Plot</span>
       											</a>
 
       										</div>
@@ -712,60 +575,20 @@ export default function HomePage() {
 											
       											<div className="tt-testimonials-list tt-tli-boxed tt-tli-tilted tt-tli-lg">
 
-												
-      												<div className="tt-testimonials-list-item">
+												{HOME_TESTIMONIALS.map((item) => (
+      												<div key={item.client} className="tt-testimonials-list-item">
       													<div className="tt-tli-inner">
       														<blockquote className="open-quote">
-      															<cite>One of the best template I've ever had. I love it! It's fully customizable, well coded, fast and responsive - fitting for all kind of devices.</cite>
-      															<footer><a href="https://themetorium.net/" className="tt-link" target="_blank" rel="noopener">John Doe</a></footer>
+      															<cite>{item.quote}</cite>
+      															<footer>
+																	<span className="tt-link">
+																		{item.person ? `${item.person} — ${item.client}` : item.client}
+																	</span>
+																</footer>
       														</blockquote>
       													</div> 
       												</div>
-												
-
-												
-      												<div className="tt-testimonials-list-item">
-      													<div className="tt-tli-inner">
-      														<blockquote className="open-quote">
-      															<cite>Brilliant template. Tons of options, many concepts, design flexibility, code quality, explanatory comments in each section for easy styling.</cite>
-      															<footer><a href="https://themetorium.net/" className="tt-link" target="_blank" rel="noopener">David Williams</a></footer>
-      														</blockquote>
-      													</div> 
-      												</div>
-												
-
-												
-      												<div className="tt-testimonials-list-item">
-      													<div className="tt-tli-inner">
-      														<blockquote className="open-quote">
-      															<cite>Easy to customize, plenty of choices to display your portfolio, fast loading times. Excellent support.</cite>
-      															<footer><a href="https://themetorium.net/" className="tt-link" target="_blank" rel="noopener">Sarah Jones</a></footer>
-      														</blockquote>
-      													</div> 
-      												</div>
-												
-
-												
-      												<div className="tt-testimonials-list-item">
-      													<div className="tt-tli-inner">
-      														<blockquote className="open-quote">
-      															<cite>Very nice design and well organised and commented code. Also good customer service.</cite>
-      															<footer><a href="https://themetorium.net/" className="tt-link" target="_blank" rel="noopener">David Brown</a></footer>
-      														</blockquote>
-      													</div> 
-      												</div>
-												
-
-												
-      												<div className="tt-testimonials-list-item">
-      													<div className="tt-tli-inner">
-      														<blockquote className="open-quote">
-      															<cite>I founded a bug on Iphone and Ipad and the author fixed very quickly. I appreciated his efforts and his quickness in solving the problem.</cite>
-      															<footer><a href="https://themetorium.net/" className="tt-link" target="_blank" rel="noopener">Olivia Bennett</a></footer>
-      														</blockquote>
-      													</div> 
-      												</div>
-												
+												))}
 
       											</div>
 											
@@ -822,284 +645,66 @@ export default function HomePage() {
 
 
 					
-      					<div className="tt-section no-padding-bottom">
-      						<div className="tt-section-inner tt-wrap">
-
-      							<div className="tt-row">
-      								<div className="tt-col-lg-7 tt-align-self-center">
-
-									
-      									<div className="tt-heading tt-heading-xxxlg">
-      										<h3 className="tt-heading-subtitle tt-anim-lines">( Recognitions )</h3>
-      										<h2 className="tt-heading-title tt-anim-characters">Awards</h2> 
-      									</div>
-									
-
-      								</div> 
-
-      								<div className="tt-col-lg-1">
-      								</div> 
-
-      								<div className="tt-col-lg-4 tt-align-self-center">
-      									<p className="tt-anim-lines">A curated list of awards and recognitions that highlight milestones in our work and growth.</p>
-      								</div> 
-      							</div>
-
-      						</div> 
-      					</div>
-					
-
-
-					
       					<div className="tt-section">
-      						<div className="tt-section-inner">
+						<div className="tt-section-inner tt-wrap">
 
-							
-      							<div className="tt-avards-list tt-avlist-boxed tt-avlist-tilted">
+							<div className="tt-row margin-bottom-40">
+								<div className="tt-col-lg-7 tt-align-self-center">
+									<div className="tt-heading tt-heading-lg">
+										<h3 className="tt-heading-subtitle tt-anim-lines">( No boring trophies )</h3>
+										<h2 className="tt-heading-title tt-anim-lines">How the Desk Works</h2>
+									</div>
+								</div>
 
-								
-      								<a href="https://themetorium.net/" className="tt-avlist-item cursor-alter tt-anim-fadeinup" target="_blank" rel="nofollow">
-      									<div className="tt-avlist-item-inner">
+								<div className="tt-col-lg-1">
+								</div>
 
-      										<div className="tt-avlist-col tt-avlist-col-count">
-      											<div className="tt-avlist-count"></div>
-      										</div> 
+								<div className="tt-col-lg-4 tt-align-self-center">
+									<p className="tt-anim-lines">Six moves. Zero award shelves. This is how a Softsove brief becomes something boards trust.</p>
+								</div>
+							</div>
 
-      										<div className="tt-avlist-col tt-avlist-col-title">
-      											<h3 className="tt-avlist-title">Awwwards</h3>
-      										</div> 
+							<div className="tt-avards-list tt-avlist-boxed tt-avlist-tilted">
+								{DESK_PLOT.map((step) => (
+									<a key={step.title} href={step.href} className="tt-avlist-item cursor-alter tt-anim-fadeinup">
+										<div className="tt-avlist-item-inner">
+											<div className="tt-avlist-col tt-avlist-col-count">
+												<div className="tt-avlist-count"></div>
+											</div>
+											<div className="tt-avlist-col tt-avlist-col-title">
+												<h3 className="tt-avlist-title">{step.title}</h3>
+											</div>
+											<div className="tt-avlist-col tt-avlist-col-description">
+												<div className="tt-avlist-description">
+													{step.note}
+												</div>
+											</div>
+											<div className="tt-avlist-col tt-avlist-col-info">
+												<div className="tt-avlist-info">
+													{step.tag}
+												</div>
+											</div>
+										</div>
+									</a>
+								))}
+							</div>
 
-      										<div className="tt-avlist-col tt-avlist-col-description">
-      											<div className="tt-avlist-description">
-      												Developer Award, Site of the Month
-      											</div> 
-      										</div> 
+						</div>
+					</div>
 
-      										<div className="tt-avlist-col tt-avlist-col-info">
-      											<div className="tt-avlist-info">
-      												12x Avards
-      											</div> 
-      										</div> 
-
-      									</div> 
-      								</a>
-								
-
-								
-      								<a href="https://themetorium.net/" className="tt-avlist-item cursor-alter tt-anim-fadeinup" target="_blank" rel="nofollow">
-      									<div className="tt-avlist-item-inner">
-
-      										<div className="tt-avlist-col tt-avlist-col-count">
-      											<div className="tt-avlist-count"></div>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-title">
-      											<h3 className="tt-avlist-title">CSS Design Awards</h3>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-description">
-      											<div className="tt-avlist-description">
-      												Designer of the Year '23
-      											</div> 
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-info">
-      											<div className="tt-avlist-info">
-      												3x Avards
-      											</div> 
-      										</div> 
-
-      									</div> 
-      								</a>
-								
-
-								
-      								<a href="https://themetorium.net/" className="tt-avlist-item cursor-alter tt-anim-fadeinup" target="_blank" rel="nofollow">
-      									<div className="tt-avlist-item-inner">
-
-      										<div className="tt-avlist-col tt-avlist-col-count">
-      											<div className="tt-avlist-count"></div>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-title">
-      											<h3 className="tt-avlist-title">Behance</h3>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-description">
-      											<div className="tt-avlist-description">
-      												UI Gallery Featured
-      											</div> 
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-info">
-      											<div className="tt-avlist-info">
-      												2x Avards
-      											</div> 
-      										</div> 
-
-      									</div> 
-      								</a>
-								
-
-								
-      								<a href="https://themetorium.net/" className="tt-avlist-item cursor-alter tt-anim-fadeinup" target="_blank" rel="nofollow">
-      									<div className="tt-avlist-item-inner">
-
-      										<div className="tt-avlist-col tt-avlist-col-count">
-      											<div className="tt-avlist-count"></div>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-title">
-      											<h3 className="tt-avlist-title">CSS Winner</h3>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-description">
-      											<div className="tt-avlist-description">
-      												Site of the Day
-      											</div> 
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-info">
-      											<div className="tt-avlist-info">
-      												4x Avards
-      											</div> 
-      										</div> 
-
-      									</div> 
-      								</a>
-								
-
-								
-      								<a href="https://themetorium.net/" className="tt-avlist-item cursor-alter tt-anim-fadeinup" target="_blank" rel="nofollow">
-      									<div className="tt-avlist-item-inner">
-
-      										<div className="tt-avlist-col tt-avlist-col-count">
-      											<div className="tt-avlist-count"></div>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-title">
-      											<h3 className="tt-avlist-title">FWA Awards</h3>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-description">
-      											<div className="tt-avlist-description">
-      												FWA of the Day, Special Mention
-      											</div> 
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-info">
-      											<div className="tt-avlist-info">
-      												8x Avards
-      											</div> 
-      										</div> 
-
-      									</div> 
-      								</a>
-								
-
-								
-      								<a href="https://themetorium.net/" className="tt-avlist-item cursor-alter tt-anim-fadeinup" target="_blank" rel="nofollow">
-      									<div className="tt-avlist-item-inner">
-
-      										<div className="tt-avlist-col tt-avlist-col-count">
-      											<div className="tt-avlist-count"></div>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-title">
-      											<h3 className="tt-avlist-title">SiteInspire</h3>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-description">
-      											<div className="tt-avlist-description">
-      												Featured Design
-      											</div> 
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-info">
-      											<div className="tt-avlist-info">
-      												6x Avards
-      											</div> 
-      										</div> 
-
-      									</div> 
-      								</a>
-								
-
-								
-      								<a href="https://themetorium.net/" className="tt-avlist-item cursor-alter tt-anim-fadeinup" target="_blank" rel="nofollow">
-      									<div className="tt-avlist-item-inner">
-
-      										<div className="tt-avlist-col tt-avlist-col-count">
-      											<div className="tt-avlist-count"></div>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-title">
-      											<h3 className="tt-avlist-title">One Page Love</h3>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-description">
-      											<div className="tt-avlist-description">
-      												Site of the Day
-      											</div> 
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-info">
-      											<div className="tt-avlist-info">
-      												2x Avards
-      											</div> 
-      										</div> 
-
-      									</div> 
-      								</a>
-								
-
-								
-      								<a href="https://themetorium.net/" className="tt-avlist-item cursor-alter tt-anim-fadeinup" target="_blank" rel="nofollow">
-      									<div className="tt-avlist-item-inner">
-
-      										<div className="tt-avlist-col tt-avlist-col-count">
-      											<div className="tt-avlist-count"></div>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-title">
-      											<h3 className="tt-avlist-title">CSS Light</h3>
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-description">
-      											<div className="tt-avlist-description">
-      												Featured Design, Featured Website
-      											</div> 
-      										</div> 
-
-      										<div className="tt-avlist-col tt-avlist-col-info">
-      											<div className="tt-avlist-info">
-      												4x Avards
-      											</div> 
-      										</div> 
-
-      									</div> 
-      								</a>
-								
-
-      							</div>
-							
-
-      						</div> 
-      					</div>
-					
 
 
 					
-      					<div className="tt-section padding-bottom-xlg-120">
+					<div className="tt-section padding-bottom-xlg-120">
       						<div className="tt-section-inner tt-wrap">
 
 							
-      							<div className="tt-heading tt-heading-xlg tt-heading-center">
-      								<h3 className="tt-heading-subtitle tt-anim-lines">( Creative Power )</h3>
+      								<div className="tt-heading tt-heading-xlg tt-heading-center">
+      								<h3 className="tt-heading-subtitle tt-anim-lines">( No boring hellos )</h3>
       								<h2 className="tt-heading-title">
-      									<a href="/lets-get-weird" className="tt-anim-characters" data-cursor="Contact">Let’s Build the Brand You Meant to Build</a>
+      									<a href="/lets-get-weird" className="tt-anim-characters" data-cursor="Let's<br>Get Weird">Let&apos;s Get Weird — Bring the Brief</a>
       								</h2> 
-      								<p className="tt-anim-lines">Let’s make something great together.</p>
+      								<p className="tt-anim-lines">Serious software. Weird desk. Boards trust the stack.</p>
       							</div>
 							
 
