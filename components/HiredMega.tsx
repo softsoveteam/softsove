@@ -1,16 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { apiGet, type Job } from "@/lib/api";
 
-const emptySubscribe = () => () => {};
-
-function useIsClient() {
-  return useSyncExternalStore(emptySubscribe, () => true, () => false);
-}
-
 export function useOpenJobs() {
-  const isClient = useIsClient();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loaded, setLoaded] = useState(false);
 
@@ -27,7 +20,7 @@ export function useOpenJobs() {
     return () => window.clearInterval(timer);
   }, [refresh]);
 
-  return { jobs, loaded: isClient && loaded, refresh };
+  return { jobs, loaded, refresh };
 }
 
 export function HiredMega({

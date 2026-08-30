@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const LOADER_COLS = 8;
 const LOADER_ROWS = 16;
@@ -71,28 +71,13 @@ const HUD_STATUS = [
   "LIGHTING THE DESK",
 ];
 
-function shuffle<T>(items: T[]) {
-  const next = items.slice();
-  for (let i = next.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [next[i], next[j]] = [next[j], next[i]];
-  }
-  return next;
-}
-
 function fillCells() {
-  const pool = shuffle(LINES);
-  return Array.from({ length: CELL_COUNT }, (_, index) => pool[index % pool.length]);
+  return Array.from({ length: CELL_COUNT }, (_, index) => LINES[index % LINES.length]);
 }
 
 export function PageTransition() {
-  const [cells, setCells] = useState<string[] | null>(null);
-  const [status, setStatus] = useState(HUD_STATUS[0]);
-
-  useEffect(() => {
-    setCells(fillCells());
-    setStatus(HUD_STATUS[Math.floor(Math.random() * HUD_STATUS.length)]);
-  }, []);
+  const [cells] = useState(fillCells);
+  const [status] = useState(HUD_STATUS[0]);
 
   return (
     <div id="tt-page-transition">

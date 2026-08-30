@@ -350,31 +350,43 @@
 			}
 		}
 
-	   // Optimize event handling (on link click)
-		$("a")
-			.not('.no-transition') // omit from selection.
-			.not('[target="_blank"]') // omit from selection.
-			.not('[href^="#"]') // omit from selection.
-			.not('[href^="mailto"]') // omit from selection.
-			.not('[href^="tel"]') // omit from selection.
-			.not('[data-fancybox]') // omit from selection
-			.not('.tt-btn-disabled') // omit from selection
-			.not('.tt-submenu-trigger > a[href=""]') // omit from selection
-			.not('.ttgr-cat-classic-item a') // omit from selection
-			.not('.ttgr-cat-item a') // omit from selection
-			.on('click', function(e) {
-				e.preventDefault();
-				setTimeout((url) => {
-					window.location = url;
-				}, $tt_ptrDuration * 2000, this.href);
-			
-			ttAnimateTransitionIn();
-		});
+		function ttShouldSkipTransition(link) {
+			if (!link || !link.getAttribute) return true;
+			const href = link.getAttribute("href") || "";
+			if (link.classList.contains("no-transition") || link.classList.contains("tt-btn-disabled")) return true;
+			if (link.target === "_blank") return true;
+			if (link.hasAttribute("data-fancybox")) return true;
+			if (!href || href.charAt(0) === "#" || href.indexOf("mailto:") === 0 || href.indexOf("tel:") === 0) return true;
+			if (link.closest(".ttgr-cat-classic-item, .ttgr-cat-item")) return true;
+			if (link.closest(".tt-submenu-trigger") && (href === "" || href === "#")) return true;
+			const dest = link.href;
+			if (!dest || dest === window.location.href) return true;
+			return false;
+		}
+
+		// One cover per click. Do not play the leave animation and then reload —
+		// that showed the preloader twice and flashed the next page underneath.
+		document.addEventListener("click", function (e) {
+			if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+			const link = e.target && e.target.closest ? e.target.closest("a") : null;
+			if (ttShouldSkipTransition(link)) return;
+			e.preventDefault();
+			e.stopPropagation();
+			if ($tt_pageTransition.length) {
+				gsap.set($tt_pageTransition, { autoAlpha: 1, visibility: "visible" });
+				gsap.set($tt_marpLoader, { autoAlpha: 1 });
+				gsap.set($tt_marpCols, { yPercent: 0 });
+			}
+			window.location.assign(link.href);
+		}, true);
 
 		// Animations on page load
-		setTimeout(function() {
-			ttAnimateTransitionOut();
-		}, 100);
+		if (!window.__ttMarpOutPlayed) {
+			window.__ttMarpOutPlayed = true;
+			setTimeout(function() {
+				ttAnimateTransitionOut();
+			}, 100);
+		}
 	}
 
 

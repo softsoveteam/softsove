@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function IndustriesPage() {
-  redirect("/strange-terrains");
+  redirect("/who-we-build-for");
 }

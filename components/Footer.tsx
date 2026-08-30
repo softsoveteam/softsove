@@ -67,8 +67,8 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="/strange-terrains" className="tt-link">
-                    Strange Terrains
+                  <a href="/who-we-build-for" className="tt-link">
+                    Who We Build For
                   </a>
                 </li>
                 <li>

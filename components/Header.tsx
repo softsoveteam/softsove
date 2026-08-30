@@ -2,10 +2,11 @@
 
 import { HiredMega, useOpenJobs } from "@/components/HiredMega";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 const HOME_HREFS = ["/", "/landing-page-1", "/landing-page-2", "/landing-page-3"];
 const WORK_HREFS = ["/crafted-things", "/work", "/portfolio-masonry-boxed"];
-const TERRAIN_HREFS = ["/strange-terrains", "/industries"];
+const TERRAIN_HREFS = ["/who-we-build-for", "/strange-terrains", "/industries"];
 const DARE_HREFS = ["/what-we-dare", "/services", "/services-2"];
 const CONTACT_HREFS = ["/lets-get-weird", "/contact", "/contact-simple"];
 const PLOT_HREFS = ["/how-we-got-weird", "/the-human", "/about", "/about-us", "/about-us-2", "/about-me"];
@@ -39,6 +40,87 @@ function itemClass(pathname: string, href: string) {
   return pathname === href ? "active" : undefined;
 }
 
+const NAV_OVERFLOW_KEYS = ["work", "dare", "terrains", "plot", "hired"] as const;
+
+function useHeaderNavOverflow(remeasureKey: string) {
+  const listRef = useRef<HTMLUListElement>(null);
+  const [hiddenKeys, setHiddenKeys] = useState<string[]>([]);
+
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+
+    let frame = 0;
+
+    const fit = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        if (window.matchMedia("(max-width: 1024px)").matches) {
+          setHiddenKeys((prev) => (prev.length ? [] : prev));
+          return;
+        }
+
+        const holder = list.closest(".tt-header-col-center") as HTMLElement | null;
+        if (!holder) return;
+
+        list.classList.add("is-nav-measuring");
+
+        const widthOf = (el: HTMLElement | null) => {
+          if (!el) return 0;
+          const styles = window.getComputedStyle(el);
+          return (
+            el.getBoundingClientRect().width +
+            parseFloat(styles.marginLeft) +
+            parseFloat(styles.marginRight)
+          );
+        };
+
+        const available = holder.clientWidth;
+        const homeW = widthOf(list.querySelector<HTMLElement>('[data-nav-key="home"]'));
+        const moreW = widthOf(list.querySelector<HTMLElement>("[data-nav-more]"));
+        const itemWidths = NAV_OVERFLOW_KEYS.map((key) =>
+          widthOf(list.querySelector<HTMLElement>(`[data-nav-key="${key}"]`)),
+        );
+
+        list.classList.remove("is-nav-measuring");
+
+        const allW = homeW + itemWidths.reduce((sum, width) => sum + width, 0);
+        let next: string[] = [];
+
+        if (allW > available + 1) {
+          let used = homeW + moreW;
+          let keep = 0;
+          for (let i = 0; i < NAV_OVERFLOW_KEYS.length; i += 1) {
+            if (used + itemWidths[i] <= available + 1) {
+              used += itemWidths[i];
+              keep += 1;
+            } else {
+              break;
+            }
+          }
+          next = [...NAV_OVERFLOW_KEYS.slice(keep)];
+        }
+
+        setHiddenKeys((prev) => (prev.join() === next.join() ? prev : next));
+      });
+    };
+
+    const observer = new ResizeObserver(fit);
+    const center = list.closest(".tt-header-col-center");
+    if (center) observer.observe(center);
+    window.addEventListener("resize", fit);
+    fit();
+
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("resize", fit);
+    };
+  }, [remeasureKey]);
+
+  return { listRef, hiddenKeys };
+}
+
 type HeaderProps = {
   variant?: "default" | "fullscreen";
 };
@@ -46,10 +128,17 @@ type HeaderProps = {
 export function Header({ variant = "default" }: HeaderProps) {
   const pathname = usePathname() || "/";
   const { jobs, loaded, refresh } = useOpenJobs();
+  const { listRef, hiddenKeys } = useHeaderNavOverflow(`${loaded ? jobs.length : "pending"}`);
   const headerClass =
     variant === "fullscreen"
       ? "tt-header-alter"
       : "tt-header-alter tt-header-fixed tt-header-filled";
+  const moreActive =
+    (hiddenKeys.includes("work") && isInSection(pathname, WORK_HREFS)) ||
+    (hiddenKeys.includes("dare") && isInSection(pathname, DARE_HREFS)) ||
+    (hiddenKeys.includes("terrains") && isInSection(pathname, TERRAIN_HREFS)) ||
+    (hiddenKeys.includes("plot") && isInSection(pathname, PLOT_HREFS)) ||
+    (hiddenKeys.includes("hired") && isCareerPath(pathname));
 
   return (
     <header id="tt-header" className={headerClass}>
@@ -68,18 +157,34 @@ export function Header({ variant = "default" }: HeaderProps) {
             <div className="tt-main-menu-holder">
               <div className="tt-main-menu-inner">
                 <div className="tt-main-menu-content">
-                  <ul className="tt-main-menu-list">
-                    <li className={navClass(isInSection(pathname, HOME_HREFS))}>
+                  <ul ref={listRef} className="tt-main-menu-list">
+                    <li data-nav-key="home" className={navClass(isInSection(pathname, HOME_HREFS))}>
                       <a href="/">Home</a>
                     </li>
-                    <li className={navClass(isInSection(pathname, WORK_HREFS))}>
+                    <li
+                      data-nav-key="work"
+                      className={[
+                        navClass(isInSection(pathname, WORK_HREFS)),
+                        hiddenKeys.includes("work") ? "tt-nav-overflow-hide" : undefined,
+                      ]
+                        .filter(Boolean)
+                        .join(" ")}
+                    >
                       <a href="/crafted-things">Crafted Things</a>
                     </li>
-                    <li className={wrapClass(pathname, DARE_HREFS, "tt-submenu-wrap tt-submenu-master")}>
+                    <li
+                      data-nav-key="dare"
+                      className={wrapClass(
+                        pathname,
+                        DARE_HREFS,
+                        hiddenKeys.includes("dare")
+                          ? "tt-submenu-wrap tt-submenu-master tt-nav-overflow-hide"
+                          : "tt-submenu-wrap tt-submenu-master",
+                      )}
+                    >
                       <div className="tt-submenu-trigger">
                         <a href="/what-we-dare">
                           What We Dare
-                          <span className="tt-nav-label">14 dares</span>
                         </a>
                       </div>
                       <div className="tt-submenu tt-plot-mega tt-dare-mega">
@@ -141,11 +246,19 @@ export function Header({ variant = "default" }: HeaderProps) {
                         </div>
                       </div>
                     </li>
-                    <li className={wrapClass(pathname, TERRAIN_HREFS, "tt-submenu-wrap tt-submenu-master")}>
+                    <li
+                      data-nav-key="terrains"
+                      className={wrapClass(
+                        pathname,
+                        TERRAIN_HREFS,
+                        hiddenKeys.includes("terrains")
+                          ? "tt-submenu-wrap tt-submenu-master tt-nav-overflow-hide"
+                          : "tt-submenu-wrap tt-submenu-master",
+                      )}
+                    >
                       <div className="tt-submenu-trigger">
-                        <a href="/strange-terrains">
-                          Strange Terrains
-                          <span className="tt-nav-label">25 lanes</span>
+                        <a href="/who-we-build-for">
+                          Who We Build For
                         </a>
                       </div>
                       <div className="tt-submenu tt-plot-mega tt-terrain-mega">
@@ -161,45 +274,45 @@ export function Header({ variant = "default" }: HeaderProps) {
                             <p className="tt-plot-mega-kicker">Six terrains. Software to the republic.</p>
                             <ul className="tt-plot-mega-list">
                               <li>
-                                <a href="/strange-terrains#terrain-mobility" className="tt-plot-mega-card">
+                                <a href="/who-we-build-for#terrain-mobility" className="tt-plot-mega-card">
                                   <span className="tt-plot-mega-card-label">Wheels &amp; wings</span>
                                   <span className="tt-plot-mega-card-title">Mobility</span>
                                   <span className="tt-plot-mega-card-note">Aerospace, automotive, off road.</span>
                                 </a>
                               </li>
                               <li>
-                                <a href="/strange-terrains#terrain-healthcare" className="tt-plot-mega-card">
+                                <a href="/who-we-build-for#terrain-healthcare" className="tt-plot-mega-card">
                                   <span className="tt-plot-mega-card-label">Care with a pulse</span>
                                   <span className="tt-plot-mega-card-title">Healthcare</span>
                                   <span className="tt-plot-mega-card-note">Devices, pharma, digital health.</span>
                                 </a>
                               </li>
                               <li>
-                                <a href="/strange-terrains#terrain-industrial" className="tt-plot-mega-card">
+                                <a href="/who-we-build-for#terrain-industrial" className="tt-plot-mega-card">
                                   <span className="tt-plot-mega-card-label">The thinking factory</span>
                                   <span className="tt-plot-mega-card-title">Industrial</span>
                                   <span className="tt-plot-mega-card-note">Automation, energy, robots, tons.</span>
                                 </a>
                               </li>
                               <li>
-                                <a href="/strange-terrains#terrain-hitech" className="tt-plot-mega-card">
+                                <a href="/who-we-build-for#terrain-hitech" className="tt-plot-mega-card">
                                   <span className="tt-plot-mega-card-label">Tiny parts. Loud ideas.</span>
                                   <span className="tt-plot-mega-card-title">Hi-Tech</span>
                                   <span className="tt-plot-mega-card-note">Electronics, security, silicon.</span>
                                 </a>
                               </li>
                               <li>
-                                <a href="/strange-terrains#terrain-technology" className="tt-plot-mega-card">
+                                <a href="/who-we-build-for#terrain-technology" className="tt-plot-mega-card">
                                   <span className="tt-plot-mega-card-label">The unapologetic stack</span>
                                   <span className="tt-plot-mega-card-title">Technology</span>
                                   <span className="tt-plot-mega-card-note">Websites, apps, custom software, platforms.</span>
                                 </a>
                               </li>
                               <li>
-                                <a href="/strange-terrains#terrain-civic" className="tt-plot-mega-card">
-                                  <span className="tt-plot-mega-card-label">India first</span>
+                                <a href="/who-we-build-for#terrain-civic" className="tt-plot-mega-card">
+                                  <span className="tt-plot-mega-card-label">Worked with Indian Government</span>
                                   <span className="tt-plot-mega-card-title">The Public Plot</span>
-                                  <span className="tt-plot-mega-card-note">Government, police, Sansad, campaigns.</span>
+                                  <span className="tt-plot-mega-card-note">Indian Government, police, Sansad, campaigns.</span>
                                 </a>
                               </li>
                             </ul>
@@ -207,7 +320,16 @@ export function Header({ variant = "default" }: HeaderProps) {
                         </div>
                       </div>
                     </li>
-                    <li className={wrapClass(pathname, PLOT_HREFS, "tt-submenu-wrap tt-submenu-master")}>
+                    <li
+                      data-nav-key="plot"
+                      className={wrapClass(
+                        pathname,
+                        PLOT_HREFS,
+                        hiddenKeys.includes("plot")
+                          ? "tt-submenu-wrap tt-submenu-master tt-nav-overflow-hide"
+                          : "tt-submenu-wrap tt-submenu-master",
+                      )}
+                    >
                       <div className="tt-submenu-trigger">
                         <a href="#">The Plot</a>
                       </div>
@@ -246,9 +368,11 @@ export function Header({ variant = "default" }: HeaderProps) {
                       <a href="/lets-get-weird">Let&apos;s Get Weird</a>
                     </li>
                     <li
+                      data-nav-key="hired"
                       className={[
                         "tt-submenu-wrap tt-submenu-master",
                         isCareerPath(pathname) ? "active" : undefined,
+                        hiddenKeys.includes("hired") ? "tt-nav-overflow-hide" : undefined,
                       ]
                         .filter(Boolean)
                         .join(" ")}
@@ -261,6 +385,58 @@ export function Header({ variant = "default" }: HeaderProps) {
                         </a>
                       </div>
                       <HiredMega pathname={pathname} jobs={jobs} loaded={loaded} />
+                    </li>
+                    <li
+                      data-nav-more
+                      className={[
+                        "tt-submenu-wrap tt-submenu-master tt-nav-more",
+                        hiddenKeys.length ? undefined : "tt-nav-more-empty",
+                        moreActive ? "active" : undefined,
+                      ]
+                        .filter(Boolean)
+                        .join(" ")}
+                      onMouseEnter={hiddenKeys.includes("hired") ? refresh : undefined}
+                    >
+                      <div className="tt-submenu-trigger">
+                        <a href="#">More</a>
+                      </div>
+                      <div className="tt-submenu">
+                        <ul className="tt-submenu-list">
+                          {hiddenKeys.includes("work") ? (
+                            <li className={navClass(isInSection(pathname, WORK_HREFS))}>
+                              <a href="/crafted-things">Crafted Things</a>
+                            </li>
+                          ) : null}
+                          {hiddenKeys.includes("dare") ? (
+                            <li className={navClass(isInSection(pathname, DARE_HREFS))}>
+                              <a href="/what-we-dare">What We Dare</a>
+                            </li>
+                          ) : null}
+                          {hiddenKeys.includes("terrains") ? (
+                            <li className={navClass(isInSection(pathname, TERRAIN_HREFS))}>
+                              <a href="/who-we-build-for">Who We Build For</a>
+                            </li>
+                          ) : null}
+                          {hiddenKeys.includes("plot") ? (
+                            <>
+                              <li className={itemClass(pathname, "/how-we-got-weird")}>
+                                <a href="/how-we-got-weird">How We Got Weird</a>
+                              </li>
+                              <li className={itemClass(pathname, "/the-human")}>
+                                <a href="/the-human">The Human</a>
+                              </li>
+                            </>
+                          ) : null}
+                          {hiddenKeys.includes("hired") ? (
+                            <li className={navClass(isCareerPath(pathname))}>
+                              <a href="/lets-get-hired">
+                                Let&apos;s Get Hired
+                                <span className="tt-nav-label">{loaded ? `${jobs.length} open` : "Open seats"}</span>
+                              </a>
+                            </li>
+                          ) : null}
+                        </ul>
+                      </div>
                     </li>
                   </ul>
                 </div>
